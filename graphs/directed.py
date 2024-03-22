@@ -9,8 +9,9 @@ class Directed:
                 node.append(0)
 
     def add_edge(self, source, dest, weight):
-        if source < len(self.mat) and dest < len(self.mat):
-            self.mat[source][dest] = weight
+        while source >= len(self.mat) or dest >= len(self.mat):
+            self.add_vertex()
+        self.mat[source][dest] = weight
 
     def remove_edge(self, source, dest):
         if source < len(self.mat) or dest < len(self.mat):
@@ -33,8 +34,6 @@ class Directed:
 
 if __name__ == "__main__":
     graph = Directed()
-    for i in range(5):
-        graph.add_vertex()
     edges = [(0, 1, 10), (4, 0, 12), (1, 4, 15), (4, 3, 3),
         (3, 1, 5), (2, 1, 23), (3, 2, 7)]
     for src, dst, weight in edges:
