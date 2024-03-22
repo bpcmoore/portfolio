@@ -31,13 +31,23 @@ class Directed:
                     edges.append((v, e, self.mat[v][e]))
         return edges
 
+    def is_valid_path(self, path):
+        if len(path) == 0:
+            return True
+        for step in range(len(path) - 1):
+            if path[step] > len(self.mat) or path[step + 1] > len(self.mat):
+                return False
+            elif self.mat[path[step]][path[step + 1]] == 0:
+                return False
+        return True
+
 
 if __name__ == "__main__":
-    graph = Directed()
     edges = [(0, 1, 10), (4, 0, 12), (1, 4, 15), (4, 3, 3),
-        (3, 1, 5), (2, 1, 23), (3, 2, 7)]
-    for src, dst, weight in edges:
-        graph.add_edge(src, dst, weight)
-    graph.remove_edge(0, 1)
-    print(graph.mat)
-    print(graph.get_edges())
+    (3, 1, 5), (2, 1, 23), (3, 2, 7)]
+    g = Directed()
+    for edge in edges:
+        g.add_edge(edge[0], edge[1], edge[2])
+    test_cases = [[0, 1, 4, 3], [1, 3, 2, 1], [0, 4], [4, 0], [], [2]]
+    for path in test_cases:
+        print(path, g.is_valid_path(path))
