@@ -77,24 +77,17 @@ class Undirected:
             cur = stack.pop()
             for e in self.adjacency_list[cur]:
                 if e not in bfs:
-                    stack.append(cur)
                     stack = [e] + stack
                     bfs.append(e)
-                    break
         return bfs    
 
 if __name__ == "__main__":
     edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
     g = Undirected(edges)
-    test_cases = (
-    'add QH', 'remove FG', 'remove GQ', 'remove HQ',
-    'remove AE', 'remove CA', 'remove EB', 'remove CE', 'remove DE',
-    'remove BC', 'add EA', 'add EF', 'add GQ', 'add AC', 'add DQ',
-    'add EG', 'add QH', 'remove CD', 'remove BD', 'remove QG')
+    test_cases = 'ABCDEGH'
     for case in test_cases:
-        command, edge = case.split()
-        u, v = edge
-        g.add_edge(u, v) if command == 'add' else g.remove_edge(u, v)
-    print(g.adjacency_list)
-
-    
+        print(f'{case} DFS:{g.dfs(case)} BFS:{g.bfs(case)}')
+        print('-----')
+    for i in range(1, len(test_cases)):
+        v1, v2 = test_cases[i], test_cases[-1 - i]
+        print(f'{v1}-{v2} DFS:{g.dfs(v1, v2)} BFS:{g.bfs(v1, v2)}')
