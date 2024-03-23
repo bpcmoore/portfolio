@@ -41,13 +41,37 @@ class Directed:
                 return False
         return True
 
+    def dfs(self, start):
+        dfs = [start]
+        stack = [start]
+        while len(stack) > 0:
+            cur = stack.pop()
+            for edge in range(len(self.mat[cur])):
+                if edge not in dfs and self.mat[cur][edge] > 0:
+                    stack.append(cur)
+                    stack.append(edge)
+                    dfs.append(edge)
+                    break
+        return dfs
+
+    def bfs(self, start):
+        bfs = [start]
+        stack = [start]
+        while len(stack) > 0:
+            cur = stack.pop()
+            for edge in range (len(self.mat[cur])):
+                if edge not in bfs and self.mat[cur][edge] > 0:
+                    stack = [edge] + stack
+                    bfs.append(edge)
+        return bfs
+                    
 
 if __name__ == "__main__":
     edges = [(0, 1, 10), (4, 0, 12), (1, 4, 15), (4, 3, 3),
-    (3, 1, 5), (2, 1, 23), (3, 2, 7)]
+             (3, 1, 5), (2, 1, 23), (3, 2, 7)]
     g = Directed()
     for edge in edges:
         g.add_edge(edge[0], edge[1], edge[2])
-    test_cases = [[0, 1, 4, 3], [1, 3, 2, 1], [0, 4], [4, 0], [], [2]]
-    for path in test_cases:
-        print(path, g.is_valid_path(path))
+
+    for start in range(5):
+        print(g.bfs(start))
