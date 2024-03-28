@@ -64,7 +64,22 @@ class Directed:
                     stack = [edge] + stack
                     bfs.append(edge)
         return bfs
-                    
+
+    def dijkstra(self, start):
+        d = ["infinity"] * len(self.mat)
+        d[start] = 0
+        queue = [start]
+        while len(queue) > 0:
+            cur = queue.pop()
+            for e in range(len(self.mat[cur])):
+                if d[e] == "infinity":
+                    if self.mat[cur][e] != 0:
+                        d[e] = self.mat[cur][e] + d[cur]
+                        queue.append(e)
+                elif self.mat[cur][e] != 0 and self.mat[cur][e] + d[cur] < d[e]:
+                    d[e] = self.mat[cur][e] + d[cur]
+                    queue.append(e)
+        return d
 
 if __name__ == "__main__":
     edges = [(0, 1, 10), (4, 0, 12), (1, 4, 15), (4, 3, 3),
@@ -73,5 +88,10 @@ if __name__ == "__main__":
     for edge in edges:
         g.add_edge(edge[0], edge[1], edge[2])
 
-    for start in range(5):
-        print(g.bfs(start))
+    for i in range(5):
+        print(f'DIJKSTRA {i} {g.dijkstra(i)}')
+
+    g.remove_edge(4, 3)
+    print('\n', g)
+    for i in range(5):
+        print(f'DIJKSTRA {i} {g.dijkstra(i)}')
