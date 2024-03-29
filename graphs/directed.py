@@ -1,6 +1,24 @@
 class Directed:
-    def __init__(self):
+    def __init__(self, edges = None):
         self.mat = []
+
+        if edges != None:
+            for edge in edges:
+                self.add_edge(edge[0], edge[1], edge[2])
+
+    def __str__(self):
+        out = "\t||0\t"
+        for i in range(1, len(self.mat)):
+            out += "|{}\t".format(i)
+        
+        for v in range(len(self.mat)):
+            out += "\n"
+            out += "=" * (len(self.mat) + 1) * 8
+            out = out + "\n{}\t||".format(v)
+            for e in range(len(self.mat[v])):
+                out += "{}\t|".format(self.mat[v][e])
+        out += "\n"
+        return out
 
     def add_vertex(self):
         self.mat.append([])
@@ -84,13 +102,11 @@ class Directed:
 if __name__ == "__main__":
     edges = [(0, 1, 10), (4, 0, 12), (1, 4, 15), (4, 3, 3),
              (3, 1, 5), (2, 1, 23), (3, 2, 7)]
-    g = Directed()
-    for edge in edges:
-        g.add_edge(edge[0], edge[1], edge[2])
+    g = Directed(edges)
 
     for i in range(5):
         print(f'DIJKSTRA {i} {g.dijkstra(i)}')
-
+    print('\n', g)
     g.remove_edge(4, 3)
     print('\n', g)
     for i in range(5):
