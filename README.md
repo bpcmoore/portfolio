@@ -1,6 +1,4 @@
-# Portfolio
-
-## Welcome to my portfolio
+# Welcome to my portfolio
 
 This repository is to help demonstrate my coding knowledge. However, please kindly remember that it is not necessarily a complete representation of my skillset as I am continuing to add to it and improve past works.
 
