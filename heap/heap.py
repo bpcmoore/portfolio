@@ -6,7 +6,7 @@ import random
 
 class MaxHeap:
     '''The MaxHeap class initiates a heap as a list and uses mathmatical
-    relationships between parent and child nodes to functionally act as a 
+    relationships between parent and child nodes to functionally act as a
     heap.'''
     def __init__(self):
         self.heap = ['x']
