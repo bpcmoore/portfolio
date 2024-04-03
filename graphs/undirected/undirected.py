@@ -10,6 +10,12 @@ class Undirected:
             for e in edges:
                 self.add_edge(e[0], e[1])
 
+    def __str__(self):
+        out = "\n"
+        for vert in self.adjacency_list:
+            out += "{}: {}\n".format(vert, self.adjacency_list[vert])
+        return out
+
     def add_vertex(self, name: str):
         '''Adds a new vertex of given name to adjacency list.'''
         if name in self.adjacency_list:
@@ -50,13 +56,13 @@ class Undirected:
         edges = []
         for v in self.adjacency_list:
             for e in self.adjacency_list[v]:
-                if (e, v) in edges:
+                if e + v in edges:
                     continue
                 else:
-                    edges.append((v, e))
+                    edges.append(v + e)
         return edges
 
-    def valid_path(self, path: str):
+    def is_valid_path(self, path: str):
         '''Takes a string consisting of vertices as a parameter. Returns True
         if the string of vertices is a valid path.'''
         for index in range(len(path) - 1):
@@ -113,4 +119,5 @@ if __name__ == "__main__":
     g = Undirected(['AB', 'AC', 'BC', 'BD', 'CD', 'CE', 'DE'])
     test_cases = ['ABC', 'ADE', 'ECABDCBE', 'ACDECB', '', 'D', 'Z']
     for path in test_cases:
-        print(list(path), g.valid_path(list(path)))
+        print(list(path), g.is_valid_path(list(path)))
+    print(g)
